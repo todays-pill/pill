@@ -16,7 +16,7 @@ public class MemberService {
 
     @Transactional
     public Long createMember(CreateMemberDto createMemberDto) {
-        Member member = new Member(createMemberDto.email(), createMemberDto.password());
+        Member member = new Member(createMemberDto.email());
         memberRepository.save(member);
 
         return member.getId();
