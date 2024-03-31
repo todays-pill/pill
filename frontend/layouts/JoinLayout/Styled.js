@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 export const Wrapper = styled.View`
   flex: 1;
   padding: 20px;
+  padding-bottom: 30px;
   background-color: #fff;
 
   display: flex;
@@ -11,7 +12,7 @@ export const Wrapper = styled.View`
 
 export const Top = styled.View`
   width: 100%;
-  flex: 0.15;
+  height: 66px;
 `;
 
 export const H1 = styled.Text`
