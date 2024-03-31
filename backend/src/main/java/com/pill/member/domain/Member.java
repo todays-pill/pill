@@ -24,11 +24,21 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private Integer age;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     public Member(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public Member(String email) {
+        this.email = email;
     }
 }
