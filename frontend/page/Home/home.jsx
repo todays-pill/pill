@@ -4,7 +4,7 @@ import Button from "../../components/Button/Button";
 
 const Home = ({ navigation }) => {
   const onPressJointButton = () => {
-    navigation.navigate("Join");
+    navigation.navigate("EmailInputPage");
   };
 
   return (

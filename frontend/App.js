@@ -5,6 +5,8 @@ import { StyleSheet, Text, View } from "react-native";
 import Home from "./page/Home/Home";
 import Join from "./page/Join/Join";
 import Header from "./components/Header/Header";
+import EmailInputPage from "./page/Join/EmailInputPage/EmailInputPage";
+import EmailCheckPage from "./page/Join/EmailCheckPage/EmailCheckPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,8 +20,15 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Join"
-          component={Join}
+          name="EmailInputPage"
+          component={EmailInputPage}
+          options={{
+            header: () => <Header title="회원가입" />,
+          }}
+        />
+        <Stack.Screen
+          name="EmailCheckPage"
+          component={EmailCheckPage}
           options={{
             header: () => <Header title="회원가입" />,
           }}
