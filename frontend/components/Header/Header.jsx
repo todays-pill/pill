@@ -1,4 +1,3 @@
-import { Text } from "react-native";
 import * as Styled from "./Styled";
 import ArrowLeft from "../../assets/vectors/arrow-left.svg";
 import { WithLocalSvg } from "react-native-svg/css";
