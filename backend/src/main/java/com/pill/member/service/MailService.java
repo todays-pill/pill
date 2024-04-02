@@ -1,10 +1,12 @@
 package com.pill.member.service;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,14 +19,17 @@ public class MailService {
 
     private final JavaMailSender emailSender;
 
-    public void sendEmail(String toEmail, String title, String text) {
-        SimpleMailMessage emailForm = createEmailForm(toEmail, title, text);
+    @Async
+    public void sendAuthEmail(HttpSession session, String toEmail) {
+        String authCode = generateCode();
+        session.setAttribute("authCode", authCode);
+        SimpleMailMessage emailForm = createEmailForm(toEmail, "PILL 이메일 인증코드", "인증코드: " + authCode);
 
         try {
             emailSender.send(emailForm);
         } catch (RuntimeException e) {
             log.debug("MailService.sendEmail exception occur toEmail: {}, " +
-                    "title: {}, text: {}", toEmail, title, text);
+                    "title: {}, text: {}", toEmail, "PILL 이메일 인증코드", "인증코드: " + authCode);
         }
     }
 
@@ -35,5 +40,9 @@ public class MailService {
         message.setText(text);
 
         return message;
+    }
+
+    public String generateCode() {
+        return String.valueOf(ThreadLocalRandom.current().nextInt(100000, 1000000));
     }
 }
