@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: local
+
+jwt:
+  secretKey: secret
+  access-token-expire-time: 3600000 # 10분
+  refresh-token-expire-time: 2592000000 # 1달
+
 ---
 spring:
   config:
