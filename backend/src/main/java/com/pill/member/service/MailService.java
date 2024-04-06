@@ -30,6 +30,7 @@ public class MailService {
         } catch (RuntimeException e) {
             log.debug("MailService.sendEmail exception occur toEmail: {}, " +
                     "title: {}, text: {}", toEmail, "PILL 이메일 인증코드", "인증코드: " + authCode);
+            throw e;
         }
     }
 
@@ -42,7 +43,7 @@ public class MailService {
         return message;
     }
 
-    public String generateCode() {
+    private String generateCode() {
         return String.valueOf(ThreadLocalRandom.current().nextInt(100000, 1000000));
     }
 }

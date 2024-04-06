@@ -1,5 +1,6 @@
 package com.pill.member.domain;
 
+import com.pill.member.dto.MemberDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,9 +34,20 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    public Member(String email, String password) {
+    public Member(String email, String password, String name, Integer age, Gender gender) {
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    public Member(MemberDto dto) {
+        this.email = dto.email();
+        this.password = dto.password();
+        this.name = dto.name();
+        this.age = dto.age();
+        this.gender = dto.gender();
     }
 
     public Member(String email) {
