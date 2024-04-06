@@ -16,8 +16,8 @@ public class JwtProvider {
 
     private final JwtProperties jwtProperties;
 
-    public Token issueToken(JwtPayload jwtPayload) {
-        return Token.of(
+    public TokenDto issueToken(JwtPayload jwtPayload) {
+        return new TokenDto(
                 generateToken(jwtPayload.memberId(),true),
                 generateToken(jwtPayload.memberId(),false)
         );

@@ -3,6 +3,7 @@ package com.pill.auth.controller;
 import com.pill.auth.dto.request.LoginRequestDto;
 import com.pill.auth.dto.response.LoginResponseDto;
 import com.pill.auth.jwt.Token;
+import com.pill.auth.jwt.TokenDto;
 import com.pill.auth.service.AuthService;
 import com.pill.global.response.ResponseApi;
 import jakarta.validation.Valid;
@@ -24,14 +25,14 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ResponseApi<LoginResponseDto>> login(@RequestBody @Valid LoginRequestDto loginDto) {
 
-        Token token = authService.login(loginDto);
+        TokenDto token = authService.login(loginDto);
 
         return ResponseApi.createSuccess(
                 HttpStatus.CREATED,
                 "로그인 성공",
                 new LoginResponseDto(
-                        token.getAccessToken(),
-                        token.getRefreshToken()
+                        token.accessToken(),
+                        token.refreshToken()
                 )
         );
     }
