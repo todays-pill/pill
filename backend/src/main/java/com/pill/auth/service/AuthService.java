@@ -1,6 +1,6 @@
 package com.pill.auth.service;
 
-import com.pill.auth.dto.LoginDto;
+import com.pill.auth.dto.request.LoginRequestDto;
 import com.pill.auth.exception.AuthException;
 import com.pill.auth.jwt.JwtPayload;
 import com.pill.auth.jwt.JwtProvider;
@@ -20,7 +20,7 @@ public class AuthService {
 
     private final JwtProvider jwtProvider;
 
-    public Token login(LoginDto loginDto) {
+    public Token login(LoginRequestDto loginDto) {
         /**
          * TODO: 비밀번호 디코딩
          */

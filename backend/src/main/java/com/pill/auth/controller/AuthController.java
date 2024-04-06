@@ -1,6 +1,7 @@
 package com.pill.auth.controller;
 
-import com.pill.auth.dto.LoginDto;
+import com.pill.auth.dto.request.LoginRequestDto;
+import com.pill.auth.dto.response.LoginResponseDto;
 import com.pill.auth.jwt.Token;
 import com.pill.auth.service.AuthService;
 import com.pill.member.controller.ResponseApi;
@@ -21,10 +22,17 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseApi<Token>> login(@RequestBody @Valid LoginDto loginDto) {
+    public ResponseEntity<ResponseApi<LoginResponseDto>> login(@RequestBody @Valid LoginRequestDto loginDto) {
 
         Token token = authService.login(loginDto);
 
-        return ResponseApi.createSuccess(HttpStatus.CREATED, "로그인 성공", token);
+        return ResponseApi.createSuccess(
+                HttpStatus.CREATED,
+                "로그인 성공",
+                new LoginResponseDto(
+                        token.getAccessToken(),
+                        token.getRefreshToken()
+                )
+        );
     }
 }

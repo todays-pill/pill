@@ -1,7 +1,9 @@
 package com.pill.auth.jwt;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class Token {
 
     private String accessToken;
