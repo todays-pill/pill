@@ -1,27 +1,21 @@
 package com.pill.member.controller;
 
-import com.pill.member.domain.Member;
 import com.pill.member.dto.EmailDto;
+import com.pill.member.dto.IdDto;
 import com.pill.member.dto.MemberDto;
-import com.pill.member.dto.PasswordDto;
 import com.pill.member.dto.ProfileDto;
 import com.pill.member.service.MailService;
 import com.pill.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @RestController
@@ -31,7 +25,6 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
-    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register/email")
     public ResponseEntity<ResponseApi<EmailDto>> sendEmail(@RequestBody @Valid EmailDto emailDto, HttpSession session) {
@@ -53,21 +46,18 @@ public class MemberController {
     }
 
     @PostMapping("/register/password")
-    public ResponseEntity<ResponseApi<Object>> savePassword(@RequestBody @Valid PasswordDto passwordDto, HttpSession session) {
+    public ResponseEntity<ResponseApi<IdDto>> savePassword(@RequestBody @Valid MemberDto memberDto, HttpSession session) {
 
-        // 단방향 암호화인 hash 함수로 hash 값을 세션에 저장
-        String encodedPassword = passwordEncoder.encode(passwordDto.password());
-        session.setAttribute("password", encodedPassword);
+        // 비밀번호 암호화 후 생성
+        String encode = BCrypt.hashpw(memberDto.password(), BCrypt.gensalt());
+        Long memberId = memberService.createMember(new MemberDto(memberDto.email(), encode));
 
-        return ResponseApi.createSuccess(HttpStatus.OK, "비밀번호 확인", null);
+        return ResponseApi.createSuccess(HttpStatus.OK, "멤버 생성 완료", new IdDto(memberId));
     }
 
     @PostMapping("/register/profile")
-    public ResponseEntity<ResponseApi<Long>> createMember(@RequestBody ProfileDto profileDto, HttpSession session) {
-        MemberDto dto = new MemberDto(session.getAttribute("email").toString(), session.getAttribute("password").toString(),
-                profileDto.name(), profileDto.age(), profileDto.gender());
-        Long memberId = memberService.createMember(dto);
-
-        return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", memberId);
+    public ResponseEntity<ResponseApi<IdDto>> createMember(@RequestBody ProfileDto profileDto, HttpSession session) {
+        memberService.updateMember(profileDto.id(), profileDto);
+        return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", new IdDto(profileDto.id()));
     }
 }

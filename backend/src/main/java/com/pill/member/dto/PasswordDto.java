@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Pattern;
 
 public record PasswordDto(
         @NotBlank
-//        @Pattern(regexp = "(?=)")
         String password
 ) {
 }
