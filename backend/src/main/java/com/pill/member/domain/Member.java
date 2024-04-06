@@ -1,5 +1,7 @@
 package com.pill.member.domain;
 
+import com.pill.member.dto.MemberDto;
+import com.pill.member.dto.ProfileDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,8 +11,11 @@ import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -24,21 +29,32 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @ColumnDefault("'unkwoun'")
     private String name;
 
-    @Column(nullable = false)
+    @ColumnDefault("0")
     private Integer age;
 
     @Enumerated(EnumType.STRING)
+    @ColumnDefault("'MALE'")
     private Gender gender;
 
-    public Member(String email, String password) {
+    public Member(String email, String password, String name, Integer age, Gender gender) {
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
     }
 
-    public Member(String email) {
-        this.email = email;
+    public Member(MemberDto dto) {
+        this.email = dto.email();
+        this.password = dto.password();
+    }
+
+    public void updateMember(String name, Integer age, Gender gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
     }
 }
