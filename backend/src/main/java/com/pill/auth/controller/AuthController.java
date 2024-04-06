@@ -4,7 +4,7 @@ import com.pill.auth.dto.request.LoginRequestDto;
 import com.pill.auth.dto.response.LoginResponseDto;
 import com.pill.auth.jwt.Token;
 import com.pill.auth.service.AuthService;
-import com.pill.member.controller.ResponseApi;
+import com.pill.global.response.ResponseApi;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

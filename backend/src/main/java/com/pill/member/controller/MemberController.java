@@ -1,5 +1,6 @@
 package com.pill.member.controller;
 
+import com.pill.global.response.ResponseApi;
 import com.pill.member.dto.EmailDto;
 import com.pill.member.dto.IdDto;
 import com.pill.member.dto.MemberDto;

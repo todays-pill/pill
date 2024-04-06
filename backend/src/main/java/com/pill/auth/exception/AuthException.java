@@ -1,8 +1,17 @@
 package com.pill.auth.exception;
 
-public class AuthException extends RuntimeException {
+import com.pill.global.exception.CoreException;
+
+public class AuthException extends CoreException {
 
     public AuthException(String message) {
         super(message);
+    }
+
+    public static class LoginAuthException extends AuthException {
+
+        public LoginAuthException() {
+            super("이메일 또는 패스워드가 틀렸습니다.");
+        }
     }
 }

@@ -1,7 +1,5 @@
 package com.pill.member.domain;
 
-import com.pill.member.dto.MemberDto;
-import com.pill.member.dto.ProfileDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,9 +45,9 @@ public class Member {
         this.gender = gender;
     }
 
-    public Member(MemberDto dto) {
-        this.email = dto.email();
-        this.password = dto.password();
+    public Member(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public void updateMember(String name, Integer age, Gender gender) {

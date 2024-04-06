@@ -1,12 +1,8 @@
-package com.pill.member.controller;
+package com.pill.global.response;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @RequiredArgsConstructor

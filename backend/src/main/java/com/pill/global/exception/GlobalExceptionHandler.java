@@ -1,7 +1,10 @@
 package com.pill.global.exception;
 
-import com.pill.member.controller.ResponseApi;
+import com.pill.auth.exception.AuthException;
+import com.pill.global.response.ResponseApi;
+import com.pill.member.exception.MemberException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,5 +26,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseApi<Object>> MethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         log.error(exception.getMessage());
         return ResponseApi.createError(HttpStatus.BAD_REQUEST, exception.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
+    @ExceptionHandler(CoreException.class)
+    public ResponseEntity<ResponseApi<Object>> handleRuntimeException(RuntimeException exception) {
+        log.error(exception.getMessage());
+        return ResponseApi.createError(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<ResponseApi<Object>> handleRuntimeException(AuthException exception) {
+        log.error(exception.getMessage());
+        return ResponseApi.createError(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
 }
