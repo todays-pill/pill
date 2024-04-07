@@ -37,14 +37,6 @@ public class Member {
     @ColumnDefault("'MALE'")
     private Gender gender;
 
-    public Member(String email, String password, String name, Integer age, Gender gender) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-    }
-
     public Member(String email, String password) {
         this.email = email;
         this.password = password;

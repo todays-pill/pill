@@ -1,6 +1,6 @@
 package com.pill.auth.exception;
 
-import com.pill.global.exception.CoreException;
+import com.pill.global.presentation.CoreException;
 
 public class AuthException extends CoreException {
 

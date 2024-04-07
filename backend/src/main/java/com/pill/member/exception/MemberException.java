@@ -1,6 +1,6 @@
 package com.pill.member.exception;
 
-import com.pill.global.exception.CoreException;
+import com.pill.global.presentation.CoreException;
 
 public class MemberException extends CoreException {
     public MemberException(String message) {
