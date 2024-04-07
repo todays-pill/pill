@@ -8,6 +8,10 @@ public class AuthException extends CoreException {
         super(message);
     }
 
+    public AuthException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public static class LoginAuthException extends AuthException {
 
         public LoginAuthException() {

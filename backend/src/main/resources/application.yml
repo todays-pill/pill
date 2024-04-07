@@ -4,8 +4,8 @@ spring:
 
 jwt:
   secretKey: djawlifhlwalawdawdhkawhdkawudhakuwdhkuawhfukawfhkuawhfawkesjiawfukawfgaw
-  access-token-expire-time: 3600000 # 10분
-  refresh-token-expire-time: 2592000000 # 1달
+  access-token-expire-time: 1800000 # 30분
+  refresh-token-expire-time: 2592000000 # 30일
 
 ---
 spring:

@@ -24,7 +24,7 @@ public class JwtProperties {
     private final Long refreshTokenExpireTime;
 
     public JwtProperties(String secretKey, Long accessTokenExpireTime, Long refreshTokenExpireTime) {
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));;
+        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));
         this.accessTokenExpireTime = accessTokenExpireTime;
         this.refreshTokenExpireTime = refreshTokenExpireTime;
     }

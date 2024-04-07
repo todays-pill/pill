@@ -1,5 +1,6 @@
 package com.pill.auth.jwt;
 
+import com.pill.auth.exception.AuthException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.JwtParser;
@@ -44,10 +45,19 @@ public class JwtProvider {
         }
     }
 
-    public JwtPayload getSubject(String token) {
-        Claims claims = getJwtParser().parseSignedClaims(token).getPayload();
+    public JwtPayload getPayload(String token) {
+        Claims claims = getClaims(token);
         Long memberId = claims.get(MEMBER_ID, Long.class);
         return new JwtPayload(memberId);
+    }
+
+    private Claims getClaims(String token) {
+        try {
+            Claims claims = getJwtParser().parseSignedClaims(token).getPayload();
+            return claims;
+        }catch (RuntimeException exception) {
+            throw new AuthException("jwt parse exception", exception);
+        }
     }
 
     private JwtParser getJwtParser() {
