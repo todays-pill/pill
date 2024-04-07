@@ -1,4 +1,4 @@
-import * as Styled from "./Styled";
+import * as Styled from './Styled';
 
 const JoinLayout = ({ topText, bottomText, inputs, button }) => {
   return (
