@@ -4,6 +4,8 @@ import com.pill.member.domain.Member;
 import com.pill.member.dto.EmailDto;
 import com.pill.member.dto.MemberDto;
 import com.pill.member.dto.ProfileDto;
+import com.pill.member.exception.MemberException;
+import com.pill.member.exception.MemberException.NotFoundMemberException;
 import com.pill.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,15 +20,15 @@ public class MemberService {
 
     @Transactional
     public Long createMember(MemberDto memberDto) {
-        Member member = new Member(memberDto);
-        memberRepository.save(member);
+        Member member = new Member(memberDto.email(), memberDto.password());
+        member = memberRepository.save(member);
 
         return member.getId();
     }
 
-    @Transactional(readOnly = false)
+    @Transactional
     public void updateMember(Long memberId, ProfileDto profileDto) {
-        Member member = memberRepository.findById(memberId).orElse(null);
+        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
         member.updateMember(profileDto.name(), profileDto.age(), profileDto.gender());
     }
 }
