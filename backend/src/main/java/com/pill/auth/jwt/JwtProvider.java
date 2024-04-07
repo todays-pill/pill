@@ -2,11 +2,10 @@ package com.pill.auth.jwt;
 
 import com.pill.auth.exception.AuthException;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Jwts.SIG;
-import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -36,14 +35,6 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean isExpired(String token) {
-        try {
-            Claims claims = getJwtParser().parseSignedClaims(token).getPayload();
-            return claims.getExpiration().before(new Date());
-        } catch (Exception e) {
-            return true;
-        }
-    }
 
     public JwtPayload getPayload(String token) {
         Claims claims = getClaims(token);
@@ -55,8 +46,17 @@ public class JwtProvider {
         try {
             Claims claims = getJwtParser().parseSignedClaims(token).getPayload();
             return claims;
-        }catch (RuntimeException exception) {
-            throw new AuthException("jwt parse exception", exception);
+        }catch (JwtException e) {
+            final String logMessage = "인증 실패(잘못된 토큰) - 토큰 : " + token + " [cause: " + e.getMessage() + "]";
+            throw new AuthException(logMessage, e);
+        }
+    }
+
+    private boolean isExpired(Claims claims) {
+        try {
+            return claims.getExpiration().before(new Date());
+        } catch (Exception e) {
+            return true;
         }
     }
 
