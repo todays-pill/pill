@@ -1,7 +1,6 @@
-import { Text } from "react-native";
-import Input from "../Input/Input";
-import Label from "../Label/Label";
-import * as Styled from "./Styeld";
+import Input from '../Input/Input';
+import Label from '../Label/Label';
+import * as Styled from './Styeld';
 
 const LabelInput = ({
   labelText,
@@ -11,6 +10,7 @@ const LabelInput = ({
   onChange,
   onPressCancel,
   errorMessage,
+  secureTextEntry,
 }) => {
   const inputProps = {
     placeholder,
@@ -18,6 +18,7 @@ const LabelInput = ({
     value,
     onChange,
     onPressCancel,
+    secureTextEntry,
   };
   return (
     <Styled.Wrapper>
