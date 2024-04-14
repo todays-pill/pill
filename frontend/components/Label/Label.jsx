@@ -1,9 +1,13 @@
 import * as Styled from "./Styled";
 
-const Label = ({ text }) => {
+const Label = ({ text, isBold }) => {
   return (
     <Styled.Wrapper>
-      <Styled.LabelText>{text}</Styled.LabelText>
+      {isBold ? (
+        <Styled.BoldLabelText>{text}</Styled.BoldLabelText>
+      ) : (
+        <Styled.LabelText>{text}</Styled.LabelText>
+      )}
     </Styled.Wrapper>
   );
 };

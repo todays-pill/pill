@@ -8,3 +8,9 @@ export const LabelText = styled.Text`
   font-size: 15px;
   color: #565a5e;
 `;
+
+export const BoldLabelText = styled.Text`
+  font-size: 17px;
+  color: #3f4245;
+  font-weight: bold;
+`;

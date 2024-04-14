@@ -1,9 +1,10 @@
-import Input from '../Input/Input';
-import Label from '../Label/Label';
-import * as Styled from './Styeld';
+import Input from "../Input/Input";
+import Label from "../Label/Label";
+import * as Styled from "./Styeld";
 
 const LabelInput = ({
   labelText,
+  isBoldLabelText,
   placeholder,
   defaultValue,
   value,
@@ -11,6 +12,8 @@ const LabelInput = ({
   onPressCancel,
   errorMessage,
   secureTextEntry,
+  isShowCancelIcon,
+  keyboardType,
 }) => {
   const inputProps = {
     placeholder,
@@ -19,10 +22,12 @@ const LabelInput = ({
     onChange,
     onPressCancel,
     secureTextEntry,
+    isShowCancelIcon,
+    keyboardType,
   };
   return (
     <Styled.Wrapper>
-      <Label text={labelText} />
+      <Label text={labelText} isBold={isBoldLabelText} />
       <Input {...inputProps} />
       {errorMessage && (
         <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>

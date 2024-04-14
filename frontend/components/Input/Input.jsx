@@ -1,6 +1,6 @@
-import * as Styled from './Styled';
-import { WithLocalSvg } from 'react-native-svg/css';
-import CancelIcon from '../../assets/vectors/cancel.svg';
+import * as Styled from "./Styled";
+import { WithLocalSvg } from "react-native-svg/css";
+import CancelIcon from "../../assets/vectors/cancel.svg";
 
 const Input = ({
   placeholder,
@@ -9,6 +9,8 @@ const Input = ({
   onChange,
   onPressCancel,
   secureTextEntry,
+  isShowCancelIcon = true,
+  keyboardType,
 }) => {
   return (
     <Styled.Wrapper>
@@ -19,10 +21,13 @@ const Input = ({
         value={value}
         onChangeText={onChange}
         secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
       />
-      <Styled.SvgWrapper onPress={onPressCancel}>
-        <WithLocalSvg asset={CancelIcon} />
-      </Styled.SvgWrapper>
+      {isShowCancelIcon && (
+        <Styled.SvgWrapper onPress={onPressCancel}>
+          <WithLocalSvg asset={CancelIcon} />
+        </Styled.SvgWrapper>
+      )}
     </Styled.Wrapper>
   );
 };
