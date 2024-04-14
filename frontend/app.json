@@ -11,11 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "NSCameraUsageDescription": "This app uses the camera to take photos."
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +24,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow pill to access your camera",
+          "microphonePermission": "Allow pill to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ]
   }
 }
