@@ -13,7 +13,6 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
