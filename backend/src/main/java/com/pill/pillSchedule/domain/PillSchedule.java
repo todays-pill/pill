@@ -1,12 +1,12 @@
-package com.pill.member.domain;
+package com.pill.pillSchedule.domain;
 
+import com.pill.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Entity
@@ -30,10 +30,10 @@ public class PillSchedule {
     private boolean isBreakfast;
     private boolean isLunch;
     private boolean isDinner;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date startDate;
 
-    public PillSchedule(Member member, String pillName, String frequency, boolean isBreakfast, boolean isLunch, boolean isDinner, Date startDate) {
+    private LocalDate startDate;
+
+    public PillSchedule(Member member, String pillName, String frequency, boolean isBreakfast, boolean isLunch, boolean isDinner, LocalDate startDate) {
         this.memberId = member;
 //        this.pillId = pill;
         this.pillName = pillName;

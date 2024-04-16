@@ -6,10 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter
@@ -36,9 +33,22 @@ public class Member {
     @ColumnDefault("'MALE'")
     private Gender gender;
 
-    public Member(String email, String password) {
+    @Builder
+    private Member(Long id, String email, String password, String name, Integer age, Gender gender) {
+        this.id = id;
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    public static Member Id(Long id) {
+        return Member.builder().id(id).build();
+    }
+
+    public static Member EmailPassword(String email, String password) {
+        return Member.builder().email(email).password(password).build();
     }
 
     public void updateMember(String name, Integer age, Gender gender) {

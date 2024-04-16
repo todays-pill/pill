@@ -20,9 +20,7 @@ public class MemberService {
 
     @Transactional
     public Long createMember(MemberDto memberDto) {
-        Member member = new Member(memberDto.email(), memberDto.password());
-        member = memberRepository.save(member);
-
+        Member member = memberRepository.save(Member.EmailPassword(memberDto.email(), memberDto.password()));
         return member.getId();
     }
 

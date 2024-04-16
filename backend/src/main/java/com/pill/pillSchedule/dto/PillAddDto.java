@@ -1,14 +1,8 @@
-package com.pill.member.dto;
+package com.pill.pillSchedule.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-
-import java.sql.Date;
 
 public record PillAddDto(
-    @NotEmpty
-    @NotNull
-    Long memberId,
 
     @NotEmpty
     String pillName,
@@ -23,9 +17,6 @@ public record PillAddDto(
     boolean isLunch,
 
     @NotEmpty
-    boolean isDinner,
-
-    @NotEmpty
-    Date startDate
+    boolean isDinner
 ) {
 }

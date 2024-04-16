@@ -1,4 +1,4 @@
-package com.pill.member.dto;
+package com.pill.pillSchedule.dto;
 
 public record PillAddResponseDto(
         Long id
