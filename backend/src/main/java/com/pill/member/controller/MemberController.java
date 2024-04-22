@@ -47,7 +47,7 @@ public class MemberController {
     }
 
     @PostMapping("/register/password")
-    public ResponseEntity<ResponseApi<IdDto>> savePassword(@RequestBody @Valid MemberDto memberDto, HttpSession session) {
+    public ResponseEntity<ResponseApi<IdDto>> savePassword(@RequestBody @Valid MemberDto memberDto) {
 
         // 비밀번호 암호화 후 생성
         String encode = BCrypt.hashpw(memberDto.password(), BCrypt.gensalt());
@@ -57,7 +57,7 @@ public class MemberController {
     }
 
     @PostMapping("/register/profile")
-    public ResponseEntity<ResponseApi<IdDto>> createMember(@RequestBody ProfileDto profileDto, HttpSession session) {
+    public ResponseEntity<ResponseApi<IdDto>> createMember(@RequestBody ProfileDto profileDto) {
         memberService.updateMember(profileDto.id(), profileDto);
         return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", new IdDto(profileDto.id()));
     }
