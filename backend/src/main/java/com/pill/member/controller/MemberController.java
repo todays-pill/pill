@@ -35,7 +35,7 @@ public class MemberController {
         return ResponseApi.createSuccess(HttpStatus.OK, "이메일 인증 코드", emailDto);
     }
 
-    @GetMapping("/register/email-auth")
+    @PostMapping("/register/email-auth")
     public ResponseEntity<ResponseApi<Object>> checkEmail(@RequestBody HashMap<String, String> authCode, HttpSession session) {
         String code = (String)session.getAttribute("authCode");
 
