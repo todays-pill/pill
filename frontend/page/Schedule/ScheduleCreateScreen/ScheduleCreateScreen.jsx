@@ -32,7 +32,11 @@ const ScheduleCreateScreen = ({ navigation }) => {
     <Styled.Wrapper>
       <Styled.ContentWrapper>
         <Styled.CameraWrapper onPress={onCliclCameraWrapper}>
-          <WithLocalSvg asset={CameraIcon} width={45} height={45} />
+          <WithLocalSvg
+            asset={require("../../../assets/vectors/camera-Icon.svg")}
+            width={45}
+            height={45}
+          />
           <Text style={{ color: "#A4AAB9" }}>등록할 알약 사진 촬영</Text>
         </Styled.CameraWrapper>
         <Styled.InputWrapper>

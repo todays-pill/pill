@@ -1,32 +1,18 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Button from "../../../components/Button/Button";
 import ImagePickerComponent from "../../../components/ImagePickerComponent/ImagePickerComponent";
 
 const RETAKE_PHOTO = "재촬영";
-const TAKE_PHOTO = "알약 앞면 사진 찍기";
+const TAKE_PHOTO = "알약 뒷면 사진 찍기";
 
-const PillCaptureScreen = ({ navigation }) => {
+const PillCaptureBackScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
   const [image, setImage] = useState(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const cameraStatus = await Camera.requestCameraPermissionsAsync();
-  //     setHasCameraPermission(cameraStatus.status === "granted");
-  //   })();
-  // }, []);
   if (!permission) {
-    // Camera permissions are still loading.
     return <View />;
   }
 
@@ -69,7 +55,6 @@ const PillCaptureScreen = ({ navigation }) => {
       </View>
     );
   }
-
   return (
     <View style={{ flex: 1, padding: 20, backgroundColor: "#FFF" }}>
       <View style={styles.cameraContainer}>
@@ -79,18 +64,12 @@ const PillCaptureScreen = ({ navigation }) => {
           <Image source={{ uri: image }} style={styles.fixedRatio} />
         )}
       </View>
-      <ImagePickerComponent text={"알약 앞면"} onChangeImage={onChangeImage} />
+      <ImagePickerComponent text={"알약 뒷면"} onChangeImage={onChangeImage} />
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           style={{ justifyContent: "center", alignItems: "center" }}
         >
-          {image && (
-            <Pressable
-              onPress={() => navigation.navigate("PillCaptureBackScreen")}
-            >
-              <Text style={{ fontSize: 16 }}>뒷면 사진 촬영하기 {">"}</Text>
-            </Pressable>
-          )}
+          {image && <Text style={{ fontSize: 16 }}>AI로 알약 검색 {">"}</Text>}
         </TouchableOpacity>
         <Button onPress={() => takePicture()}>{getTakePictureType()}</Button>
       </View>
@@ -114,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PillCaptureScreen;
+export default PillCaptureBackScreen;

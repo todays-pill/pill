@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button, Image, View, StyleSheet } from "react-native";
+import { Button, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 const ImagePickerComponent = ({ text, onChangeImage }) => {
@@ -11,8 +10,6 @@ const ImagePickerComponent = ({ text, onChangeImage }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       // setImage(result.assets[0].uri);

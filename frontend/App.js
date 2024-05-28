@@ -9,6 +9,7 @@ import LoginInputPage from "./page/Join/LoginInputPage/LoginInputPage";
 import LoginCheckPage from "./page/Join/LoginCheckPage/LoginCheckPage";
 import ScheduleCreateScreen from "./page/Schedule/ScheduleCreateScreen/ScheduleCreateScreen";
 import PillCaptureScreen from "./page/Schedule/PillCaptureScreen/PillCaptureScreen";
+import PillCaptureBackScreen from "./page/Schedule/PillCaptureBackScreen/PillCaptureBackScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,7 +61,14 @@ export default function App() {
           name="PillCaptureScreen"
           component={PillCaptureScreen}
           options={{
-            header: () => <Header title="알약 등록" />,
+            header: () => <Header title="알약 앞면 촬영" />,
+          }}
+        />
+        <Stack.Screen
+          name="PillCaptureBackScreen"
+          component={PillCaptureBackScreen}
+          options={{
+            header: () => <Header title="알약 뒷면 촬영" />,
           }}
         />
       </Stack.Navigator>
