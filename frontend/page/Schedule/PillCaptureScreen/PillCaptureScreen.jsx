@@ -3,9 +3,10 @@ import { Camera } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Button from "../../../components/Button/Button";
+import ImagePickerComponent from "../../../components/ImagePickerComponent/ImagePickerComponent";
 
 const RETAKE_PHOTO = "재촬영";
-const TAKE_PHOTO = "사진 찍기";
+const TAKE_PHOTO = "알약 앞면 사진 찍기";
 
 const PillCaptureScreen = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -35,9 +36,13 @@ const PillCaptureScreen = () => {
         res => res.blob()
       );
       const url = URL.createObjectURL(blob);
-      console.log(url);
       setImage(url);
     }
+  };
+
+  const onChangeImage = blob => {
+    const url = URL.createObjectURL(blob);
+    setImage(url);
   };
 
   const getTakePictureType = () => {
@@ -62,12 +67,13 @@ const PillCaptureScreen = () => {
           <Image source={{ uri: image }} style={styles.fixedRatio} />
         )}
       </View>
+      <ImagePickerComponent text={"알약 앞면"} onChangeImage={onChangeImage} />
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           style={{ justifyContent: "center", alignItems: "center" }}
         >
           {image && (
-            <Text style={{ fontSize: 16 }}>해당 사진 AI로 알약 검색 {">"}</Text>
+            <Text style={{ fontSize: 16 }}>뒷면 사진 촬영하기 {">"}</Text>
           )}
         </TouchableOpacity>
         <Button onPress={() => takePicture()}>{getTakePictureType()}</Button>
@@ -85,6 +91,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   buttonWrapper: {
+    marginTop: 20,
     width: "100%",
     display: "flex",
     gap: 10,

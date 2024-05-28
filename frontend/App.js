@@ -1,21 +1,21 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet } from 'react-native';
-import Home from './page/Home/Home';
-import Header from './components/Header/Header';
-import EmailInputPage from './page/Join/EmailInputPage/EmailInputPage';
-import EmailCheckPage from './page/Join/EmailCheckPage/EmailCheckPage';
-import LoginInputPage from './page/Join/LoginInputPage/LoginInputPage';
-import LoginCheckPage from './page/Join/LoginCheckPage/LoginCheckPage';
-import ScheduleCreateScreen from './page/Schedule/ScheduleCreateScreen/ScheduleCreateScreen';
-import PillCaptureScreen from './page/Schedule/PillCaptureScreen/PillCaptureScreen';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StyleSheet } from "react-native";
+import Home from "./page/Home/Home";
+import Header from "./components/Header/Header";
+import EmailInputPage from "./page/Join/EmailInputPage/EmailInputPage";
+import EmailCheckPage from "./page/Join/EmailCheckPage/EmailCheckPage";
+import LoginInputPage from "./page/Join/LoginInputPage/LoginInputPage";
+import LoginCheckPage from "./page/Join/LoginCheckPage/LoginCheckPage";
+import ScheduleCreateScreen from "./page/Schedule/ScheduleCreateScreen/ScheduleCreateScreen";
+import PillCaptureScreen from "./page/Schedule/PillCaptureScreen/PillCaptureScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="ScheduleCreateScreen">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -71,8 +71,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

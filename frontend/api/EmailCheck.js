@@ -1,7 +1,12 @@
-export const checkAuthCode = async (authCode) => {
+import axios from "axios";
+
+export const checkAuthCode = async authCode => {
   try {
-    const res = await axios.get(
-      `http://localhost:8080/members/register/email-auth?code=${authCode}`
+    const res = await axios.post(
+      `http://localhost:8080/members/register/email-auth`,
+      {
+        authCode,
+      }
     );
     return res.data;
   } catch (error) {
