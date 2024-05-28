@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AiServer {
 
-    Pill search(MultipartFile front, MultipartFile back);
+    String search(MultipartFile front, MultipartFile back);
 }

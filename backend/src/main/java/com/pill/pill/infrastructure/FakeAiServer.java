@@ -1,13 +1,12 @@
 package com.pill.pill.infrastructure;
 
-import com.pill.pill.domain.Pill;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-//@Component
-public class AiServerImpl implements AiServer {
+@Component
+public class FakeAiServer implements AiServer {
     @Override
     public String search(MultipartFile front, MultipartFile back) {
-        return null;
+        return "K-038896";
     }
 }

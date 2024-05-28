@@ -23,7 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .order(1)
                 .excludePathPatterns("/auth/login")
                 .excludePathPatterns("/members/register/**")
-//                .addPathPatterns("/member/register/profile")
+                .excludePathPatterns("/pill/**")
                 .addPathPatterns("/**");
     }
 

@@ -8,11 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Pill {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

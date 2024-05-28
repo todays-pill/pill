@@ -4,6 +4,7 @@ import com.pill.global.response.ResponseApi;
 import com.pill.pill.dto.PillDetailDto;
 import com.pill.pill.service.PillService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,10 @@ public class PillController {
 
     private final PillService pillService;
 
-    @GetMapping
+    @GetMapping("ai")
     public ResponseEntity<ResponseApi<PillDetailDto>> searchPill(@RequestPart("front") MultipartFile frontImage, @RequestPart("back") MultipartFile backImage) {
         // 파일을 저장하거나 처리하는 로직
-        pillService.searchPill(frontImage, backImage);
-        return null;
+        PillDetailDto pillDetailDto = pillService.searchPill(frontImage, backImage);
+        return ResponseApi.createSuccess(HttpStatus.OK, pillDetailDto);
     }
 }
