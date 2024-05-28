@@ -1,20 +1,20 @@
-import { View } from 'react-native';
-import * as Styled from './Styled';
-import Button from '../../components/Button/Button';
+import { View } from "react-native";
+import * as Styled from "./Styled";
+import Button from "../../components/Button/Button";
 
 const Home = ({ navigation }) => {
   const onPressEmailStartButton = () => {
-    navigation.navigate('LoginInputPage');
+    navigation.navigate("LoginInputPage");
   };
 
   const onPressJointButton = () => {
-    navigation.navigate('EmailInputPage');
+    navigation.navigate("EmailInputPage");
   };
 
   return (
     <Styled.Wrapper>
       <Styled.ImageBg
-        source={require('../../assets/main.png')}
+        source={require("../../assets/main.png")}
         resizeMode="cover"
       >
         <View style={{ gap: 10 }}>
