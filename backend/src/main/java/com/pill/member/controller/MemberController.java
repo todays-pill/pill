@@ -29,7 +29,6 @@ public class MemberController {
 
     @PostMapping("/register/email")
     public ResponseEntity<ResponseApi<EmailDto>> sendEmail(@RequestBody @Valid EmailDto emailDto, HttpSession session) {
-        session.setAttribute("email", emailDto.email());
         mailService.sendAuthEmail(session, emailDto.email());
 
         return ResponseApi.createSuccess(HttpStatus.OK, "이메일 인증 코드", emailDto);
