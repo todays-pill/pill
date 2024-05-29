@@ -21,10 +21,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(memberInterceptor)
                 .order(1)
+                .addPathPatterns("/**")
                 .excludePathPatterns("/auth/login")
                 .excludePathPatterns("/members/register/**")
-                .excludePathPatterns("/pill/**")
-                .addPathPatterns("/**");
+                .excludePathPatterns("/pill/**");
+
     }
 
     @Override
