@@ -10,23 +10,18 @@ import {
 } from "react-native";
 import Button from "../../../components/Button/Button";
 import ImagePickerComponent from "../../../components/ImagePickerComponent/ImagePickerComponent";
+import useAiPillSearchStore from "../../../store/aiPillSearchStore";
 
 const RETAKE_PHOTO = "재촬영";
 const TAKE_PHOTO = "알약 앞면 사진 찍기";
 
 const PillCaptureScreen = ({ navigation }) => {
+  const { setFrontBlob } = useAiPillSearchStore();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
   const [image, setImage] = useState(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const cameraStatus = await Camera.requestCameraPermissionsAsync();
-  //     setHasCameraPermission(cameraStatus.status === "granted");
-  //   })();
-  // }, []);
   if (!permission) {
-    // Camera permissions are still loading.
     return <View />;
   }
 
@@ -45,12 +40,14 @@ const PillCaptureScreen = ({ navigation }) => {
       const blob = await fetch(`data:image/jpeg;base64,${data.base64}`).then(
         res => res.blob()
       );
+      setFrontBlob(blob);
       const url = URL.createObjectURL(blob);
       setImage(url);
     }
   };
 
   const onChangeImage = blob => {
+    setFrontBlob(blob);
     const url = URL.createObjectURL(blob);
     setImage(url);
   };

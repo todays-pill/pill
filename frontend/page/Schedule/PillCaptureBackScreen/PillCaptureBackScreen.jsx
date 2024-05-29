@@ -1,13 +1,23 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Button from "../../../components/Button/Button";
 import ImagePickerComponent from "../../../components/ImagePickerComponent/ImagePickerComponent";
+import useAiPillSearchStore from "../../../store/aiPillSearchStore";
+import { searchPillAi } from "../../../api/pill";
 
 const RETAKE_PHOTO = "재촬영";
 const TAKE_PHOTO = "알약 뒷면 사진 찍기";
 
 const PillCaptureBackScreen = () => {
+  const { frontBlob, backBlob, setBackBlob } = useAiPillSearchStore();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
   const [image, setImage] = useState(null);
@@ -31,18 +41,25 @@ const PillCaptureBackScreen = () => {
       const blob = await fetch(`data:image/jpeg;base64,${data.base64}`).then(
         res => res.blob()
       );
+      setBackBlob(blob);
       const url = URL.createObjectURL(blob);
       setImage(url);
     }
   };
 
   const onChangeImage = blob => {
+    setBackBlob(blob);
     const url = URL.createObjectURL(blob);
     setImage(url);
   };
 
   const getTakePictureType = () => {
     return image === null ? TAKE_PHOTO : RETAKE_PHOTO;
+  };
+
+  const onClickAiSearchBtn = async () => {
+    const data = await searchPillAi(frontBlob, backBlob);
+    console.log(data);
   };
 
   if (!permission.granted) {
@@ -69,7 +86,11 @@ const PillCaptureBackScreen = () => {
         <TouchableOpacity
           style={{ justifyContent: "center", alignItems: "center" }}
         >
-          {image && <Text style={{ fontSize: 16 }}>AI로 알약 검색 {">"}</Text>}
+          {image && (
+            <Pressable onPress={onClickAiSearchBtn}>
+              <Text style={{ fontSize: 16 }}>AI로 알약 검색 {">"}</Text>
+            </Pressable>
+          )}
         </TouchableOpacity>
         <Button onPress={() => takePicture()}>{getTakePictureType()}</Button>
       </View>
