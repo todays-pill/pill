@@ -10,13 +10,14 @@ import LoginCheckPage from "./page/Join/LoginCheckPage/LoginCheckPage";
 import ScheduleCreateScreen from "./page/Schedule/ScheduleCreateScreen/ScheduleCreateScreen";
 import PillCaptureScreen from "./page/Schedule/PillCaptureScreen/PillCaptureScreen";
 import PillCaptureBackScreen from "./page/Schedule/PillCaptureBackScreen/PillCaptureBackScreen";
+import AiSearchResultScreen from "./page/Schedule/AiSearchResultScreen/AiSearchResultScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ScheduleCreateScreen">
+      <Stack.Navigator initialRouteName="AiSearchResultScreen">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -69,6 +70,13 @@ export default function App() {
           component={PillCaptureBackScreen}
           options={{
             header: () => <Header title="알약 뒷면 촬영" />,
+          }}
+        />
+        <Stack.Screen
+          name="AiSearchResultScreen"
+          component={AiSearchResultScreen}
+          options={{
+            header: () => <Header title="알약 검색 결과" />,
           }}
         />
       </Stack.Navigator>
