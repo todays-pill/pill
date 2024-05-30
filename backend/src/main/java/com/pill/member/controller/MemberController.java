@@ -1,9 +1,12 @@
 package com.pill.member.controller;
 
+import com.pill.global.presentation.AuthPrincipal;
+import com.pill.global.presentation.dto.AuthMember;
 import com.pill.global.response.ResponseApi;
 import com.pill.member.dto.EmailDto;
 import com.pill.member.dto.IdDto;
 import com.pill.member.dto.MemberDto;
+import com.pill.member.dto.MemberMeDto;
 import com.pill.member.dto.ProfileDto;
 import com.pill.member.service.MailService;
 import com.pill.member.service.MemberService;
@@ -60,4 +63,11 @@ public class MemberController {
         memberService.updateMember(profileDto.id(), profileDto);
         return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", new IdDto(profileDto.id()));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<ResponseApi<MemberMeDto>> findMe(@AuthPrincipal AuthMember authMember) {
+        MemberMeDto memberMeDto = memberService.findMember(authMember.memberId());
+        return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", memberMeDto);
+    }
+
 }

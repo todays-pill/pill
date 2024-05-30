@@ -3,6 +3,7 @@ package com.pill.member.service;
 import com.pill.member.domain.Member;
 import com.pill.member.dto.EmailDto;
 import com.pill.member.dto.MemberDto;
+import com.pill.member.dto.MemberMeDto;
 import com.pill.member.dto.ProfileDto;
 import com.pill.member.exception.MemberException;
 import com.pill.member.exception.MemberException.NotFoundMemberException;
@@ -28,5 +29,10 @@ public class MemberService {
     public void updateMember(Long memberId, ProfileDto profileDto) {
         Member member = memberRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
         member.updateMember(profileDto.name(), profileDto.age(), profileDto.gender());
+    }
+
+    public MemberMeDto findMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
+        return new MemberMeDto(member.getId(), member.getName());
     }
 }

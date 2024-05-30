@@ -13,7 +13,7 @@ spring:
 
 jwt:
   secretKey: djawlifhlwalawdawdhkawhdkawudhakuwdhkuawhfukawfhkuawhfawkesjiawfukawfgaw
-  access-token-expire-time: 1800000 # 30분
+  access-token-expire-time: 2592000000 # 30일
   refresh-token-expire-time: 2592000000 # 30일
 
 file:
