@@ -20,6 +20,9 @@ const EmailCheckPage = ({ route, navigation }) => {
   const onSubmit = async data => {
     try {
       const result = await checkAuthCode(data.code); // checkAuthoCode 함수 호출
+      if (result.status === "OK") {
+        navigation.navigate("PasswordInputScreen", { email });
+      }
     } catch (error) {
       console.error(error);
     }
