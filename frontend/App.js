@@ -13,6 +13,7 @@ import PillCaptureBackScreen from "./page/Schedule/PillCaptureBackScreen/PillCap
 import AiSearchResultScreen from "./page/Schedule/AiSearchResultScreen/AiSearchResultScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PasswordInputScreen from "./page/Join/PasswordInputScreen/PasswordInputScreen";
+import ProfileSettingScreen from "./page/Join/ProfileSettinScreen/ProfileSettingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="EmailInputPage">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={Home}
@@ -61,6 +62,13 @@ export default function App() {
             component={LoginCheckPage}
             options={{
               header: () => <Header title="시작하기" />,
+            }}
+          />
+          <Stack.Screen
+            name="ProfileSettinScreen"
+            component={ProfileSettingScreen}
+            options={{
+              header: () => <Header title="프로필 설정" />,
             }}
           />
           <Stack.Screen

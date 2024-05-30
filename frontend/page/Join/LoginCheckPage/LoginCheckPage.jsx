@@ -29,7 +29,7 @@ const LoginCheckPage = ({ route, navigation }) => {
       const { data, status } = await getMe();
       if (status === "OK") {
         if (!data.name) {
-          // navigation.navigate("")
+          navigation.navigate("ProfileSettinScreen");
           return;
         }
         // navigation.navigate("")

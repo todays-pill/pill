@@ -22,3 +22,16 @@ export const getMe = async () => {
     throw new ApiError();
   }
 };
+
+export const updateProfile = async (name, gender) => {
+  try {
+    const res = await customAxios.post(`/members/register/profile`, {
+      name,
+      gender,
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw new ApiError();
+  }
+};

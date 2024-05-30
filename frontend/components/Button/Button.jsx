@@ -1,10 +1,17 @@
 import * as Styled from "./Styled";
 
-const Button = ({ children, onPress, isBg = true, extraButton, viewStyle }) => {
+const Button = ({
+  children,
+  onPress,
+  isBg = true,
+  extraButton,
+  viewStyle,
+  textStyled,
+}) => {
   return (
     <>
       <Styled.Wrapper style={viewStyle} isBg={isBg} onPress={onPress}>
-        <Styled.Text>{children}</Styled.Text>
+        <Styled.Text style={textStyled}>{children}</Styled.Text>
       </Styled.Wrapper>
       {extraButton && (
         <Styled.ExtraButtonWrapper onPress={extraButton.onPress}>
