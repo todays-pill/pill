@@ -1,9 +1,10 @@
 import customAxios from "./customAxios";
 
-export const checkAuthCode = async authCode => {
+export const login = async (email, password) => {
   try {
-    const res = await customAxios.post(`/members/register/email-auth`, {
-      authCode,
+    const res = await customAxios.post("/auth/login", {
+      email,
+      password,
     });
     return res.data;
   } catch (error) {

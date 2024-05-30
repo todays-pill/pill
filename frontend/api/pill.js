@@ -1,5 +1,5 @@
-import axios from "axios";
 import { ApiError } from "./ApiError";
+import customAxios from "./customAxios";
 
 export const searchPillAi = async (frontBlob, backBlob) => {
   const formData = new FormData();
@@ -12,7 +12,7 @@ export const searchPillAi = async (frontBlob, backBlob) => {
   formData.append("back", backFile, "back.jpg");
   console.log(formData);
   try {
-    const res = await axios.post("http://localhost:8080/pill/ai", formData);
+    const res = await customAxios.post("/pill/ai", formData);
     console.log("ai 검색 성공");
     return res.data;
   } catch (error) {

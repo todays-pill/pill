@@ -1,14 +1,21 @@
-import axios from "axios";
+import customAxios from "./customAxios";
 
 export const registerMember = async (email, password) => {
   try {
-    const res = await axios.post(
-      `http://localhost:8080/members/register/password`,
-      {
-        email,
-        password,
-      }
-    );
+    const res = await customAxios.post(`/members/register/password`, {
+      email,
+      password,
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    throw new ApiError();
+  }
+};
+
+export const getMe = async () => {
+  try {
+    const res = await customAxios.get(`/members/me`);
     return res.data;
   } catch (error) {
     console.error(error);

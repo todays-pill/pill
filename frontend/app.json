@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "NSCameraUsageDescription": "This app uses the camera to take photos."
@@ -33,7 +35,8 @@
           "microphonePermission": "Allow pill to access your microphone",
           "recordAudioAndroid": true
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }
