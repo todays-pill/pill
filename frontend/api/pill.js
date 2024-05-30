@@ -12,7 +12,7 @@ export const searchPillAi = async (frontBlob, backBlob) => {
   formData.append("back", backFile, "back.jpg");
   console.log(formData);
   try {
-    const res = await axios.post("http://192.168.0.5:8080/pill/ai", formData);
+    const res = await axios.post("http://localhost:8080/pill/ai", formData);
     console.log("ai 검색 성공");
     return res.data;
   } catch (error) {

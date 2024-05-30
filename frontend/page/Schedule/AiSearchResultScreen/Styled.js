@@ -28,4 +28,5 @@ export const InputWrapper = styled.View`
 
 export const ButtonWrapper = styled.View`
   flex-direction: row;
+  gap: 10px;
 `;

@@ -11,76 +11,81 @@ import ScheduleCreateScreen from "./page/Schedule/ScheduleCreateScreen/ScheduleC
 import PillCaptureScreen from "./page/Schedule/PillCaptureScreen/PillCaptureScreen";
 import PillCaptureBackScreen from "./page/Schedule/PillCaptureBackScreen/PillCaptureBackScreen";
 import AiSearchResultScreen from "./page/Schedule/AiSearchResultScreen/AiSearchResultScreen";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="AiSearchResultScreen">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="EmailInputPage"
-          component={EmailInputPage}
-          options={{
-            header: () => <Header title="회원가입" />,
-          }}
-        />
-        <Stack.Screen
-          name="EmailCheckPage"
-          component={EmailCheckPage}
-          options={{
-            header: () => <Header title="회원가입" />,
-          }}
-        />
-        <Stack.Screen
-          name="LoginInputPage"
-          component={LoginInputPage}
-          options={{
-            header: () => <Header title="시작하기" />,
-          }}
-        />
-        <Stack.Screen
-          name="LoginCheckPage"
-          component={LoginCheckPage}
-          options={{
-            header: () => <Header title="시작하기" />,
-          }}
-        />
-        <Stack.Screen
-          name="ScheduleCreateScreen"
-          component={ScheduleCreateScreen}
-          options={{
-            header: () => <Header title="알약 등록" />,
-          }}
-        />
-        <Stack.Screen
-          name="PillCaptureScreen"
-          component={PillCaptureScreen}
-          options={{
-            header: () => <Header title="알약 앞면 촬영" />,
-          }}
-        />
-        <Stack.Screen
-          name="PillCaptureBackScreen"
-          component={PillCaptureBackScreen}
-          options={{
-            header: () => <Header title="알약 뒷면 촬영" />,
-          }}
-        />
-        <Stack.Screen
-          name="AiSearchResultScreen"
-          component={AiSearchResultScreen}
-          options={{
-            header: () => <Header title="알약 검색 결과" />,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="ScheduleCreateScreen">
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="EmailInputPage"
+            component={EmailInputPage}
+            options={{
+              header: () => <Header title="회원가입" />,
+            }}
+          />
+          <Stack.Screen
+            name="EmailCheckPage"
+            component={EmailCheckPage}
+            options={{
+              header: () => <Header title="회원가입" />,
+            }}
+          />
+          <Stack.Screen
+            name="LoginInputPage"
+            component={LoginInputPage}
+            options={{
+              header: () => <Header title="시작하기" />,
+            }}
+          />
+          <Stack.Screen
+            name="LoginCheckPage"
+            component={LoginCheckPage}
+            options={{
+              header: () => <Header title="시작하기" />,
+            }}
+          />
+          <Stack.Screen
+            name="ScheduleCreateScreen"
+            component={ScheduleCreateScreen}
+            options={{
+              header: () => <Header title="알약 등록" />,
+            }}
+          />
+          <Stack.Screen
+            name="PillCaptureScreen"
+            component={PillCaptureScreen}
+            options={{
+              header: () => <Header title="알약 앞면 촬영" />,
+            }}
+          />
+          <Stack.Screen
+            name="PillCaptureBackScreen"
+            component={PillCaptureBackScreen}
+            options={{
+              header: () => <Header title="알약 뒷면 촬영" />,
+            }}
+          />
+          <Stack.Screen
+            name="AiSearchResultScreen"
+            component={AiSearchResultScreen}
+            options={{
+              header: () => <Header title="알약 검색 결과" />,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 

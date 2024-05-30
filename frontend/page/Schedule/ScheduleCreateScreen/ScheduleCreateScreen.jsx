@@ -1,27 +1,48 @@
-import { Text } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { WithLocalSvg } from "react-native-svg/css";
-import CameraIcon from "../../../assets/vectors/camera-Icon.svg";
 import * as Styled from "./Styled";
 import LabelInput from "../../../components/LabelInput/LabelInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "../../../components/Button/Button";
 import SelectedInput from "../../../components/SelectedInput/SelectedInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAiPillSearchStore from "../../../store/aiPillSearchStore";
+import Label from "../../../components/Label/Label";
+
+const days = ["월", "화", "수", "목", "금", "토", "일"];
 
 const ScheduleCreateScreen = ({ navigation }) => {
+  const { pillData } = useAiPillSearchStore();
+  const [selectedDays, setSelectedDays] = useState([]);
   const [selectedvalues, setSelectedValues] = useState(["아침"]);
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
-      pillName: "",
+      pillName: pillData?.name || "",
       frequencyInterval: null,
     },
   });
+
+  useEffect(() => {
+    if (pillData) {
+      setValue("pillName", pillData.name);
+    }
+  }, [pillData]);
+
   const onCliclCameraWrapper = () => {
     navigation.navigate("PillCaptureScreen");
+  };
+
+  const onPressDay = day => {
+    if (selectedDays.includes(day)) {
+      setSelectedDays(v => v.filter(d => d !== day));
+      return;
+    }
+    setSelectedDays(v => [...v, day]);
   };
 
   const onSubmit = data => {
@@ -32,12 +53,26 @@ const ScheduleCreateScreen = ({ navigation }) => {
     <Styled.Wrapper>
       <Styled.ContentWrapper>
         <Styled.CameraWrapper onPress={onCliclCameraWrapper}>
-          <WithLocalSvg
-            asset={require("../../../assets/vectors/camera-Icon.svg")}
-            width={45}
-            height={45}
-          />
-          <Text style={{ color: "#A4AAB9" }}>등록할 알약 사진 촬영</Text>
+          {!pillData ? (
+            <>
+              <WithLocalSvg
+                asset={require("../../../assets/vectors/camera-Icon.svg")}
+                width={45}
+                height={45}
+              />
+              <Text style={{ color: "#A4AAB9" }}>등록할 알약 사진 촬영</Text>
+            </>
+          ) : (
+            <Image
+              style={{
+                width: 350,
+                height: 200,
+              }}
+              source={{
+                uri: `${pillData.imageUrl}`,
+              }}
+            />
+          )}
         </Styled.CameraWrapper>
         <Styled.InputWrapper>
           <Controller
@@ -51,6 +86,7 @@ const ScheduleCreateScreen = ({ navigation }) => {
                 placeholder="알약 이름"
                 onChange={onChange}
                 value={value}
+                defaultValue={pillData?.name || ""}
                 errorMessage={errors.pillName?.message}
                 isShowCancelIcon={false}
                 isBoldLabelText={true}
@@ -58,33 +94,44 @@ const ScheduleCreateScreen = ({ navigation }) => {
             )}
             name="pillName"
           />
-          <Controller
-            control={control}
-            rules={{
-              required: "복용 주기는 필수입니다.",
-              pattern: {
-                value: /^([1-9]\d*)(\.\d+)?$/,
-                message: "1이상의 숫자만 허용합니다.",
-              },
-              max: {
-                value: 30,
-                message: "복용 주기는 30일을 초과할 수 없습니다.",
-              },
-            }}
-            render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <LabelInput
-                labelText={"복용 주기를 적어주세요"}
-                placeholder="며칠 간격으로 복용할지를 적어주세요"
-                onChange={onChange}
-                value={value}
-                errorMessage={error?.message}
-                isShowCancelIcon={false}
-                isBoldLabelText={true}
-                keyboardType={"number-pad"}
-              />
-            )}
-            name="frequencyInterval"
-          />
+          <View>
+            <Label isBold={true} text={"반복할 요일을 선택해주세요!"} />
+            <View
+              style={{
+                flexDirection: "row",
+                gap: 10,
+                justifyContent: "space-between",
+                marginTop: 10,
+              }}
+            >
+              {days.map(day => (
+                <Pressable
+                  onPress={() => onPressDay(day)}
+                  key={day}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 50,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: selectedDays.includes(day)
+                      ? "#5BADFF"
+                      : "#FFF",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: selectedDays.includes(day) ? "#FFFFFF" : "#A7ADBD",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {day}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
           <SelectedInput
             labelText={"복용할 시간대를 골라주세요"}
             selectedvalues={selectedvalues}

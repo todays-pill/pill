@@ -16,7 +16,7 @@ import { searchPillAi } from "../../../api/pill";
 const RETAKE_PHOTO = "재촬영";
 const TAKE_PHOTO = "알약 뒷면 사진 찍기";
 
-const PillCaptureBackScreen = () => {
+const PillCaptureBackScreen = ({ navigation }) => {
   const { frontBlob, backBlob, setBackBlob } = useAiPillSearchStore();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
@@ -58,8 +58,7 @@ const PillCaptureBackScreen = () => {
   };
 
   const onClickAiSearchBtn = async () => {
-    const data = await searchPillAi(frontBlob, backBlob);
-    console.log(data);
+    navigation.navigate("AiSearchResultScreen");
   };
 
   if (!permission.granted) {
