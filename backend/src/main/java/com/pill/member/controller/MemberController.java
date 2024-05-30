@@ -59,15 +59,15 @@ public class MemberController {
     }
 
     @PostMapping("/register/profile")
-    public ResponseEntity<ResponseApi<IdDto>> createMember(@RequestBody ProfileDto profileDto) {
-        memberService.updateMember(profileDto.id(), profileDto);
-        return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", new IdDto(profileDto.id()));
+    public ResponseEntity<ResponseApi<IdDto>> createMember(@AuthPrincipal AuthMember authMember ,@RequestBody @Valid ProfileDto profileDto) {
+        memberService.updateMember(authMember.memberId(), profileDto);
+        return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", new IdDto(authMember.memberId()));
     }
 
     @GetMapping("/me")
     public ResponseEntity<ResponseApi<MemberMeDto>> findMe(@AuthPrincipal AuthMember authMember) {
         MemberMeDto memberMeDto = memberService.findMember(authMember.memberId());
-        return ResponseApi.createSuccess(HttpStatus.OK, "회원가입 성공", memberMeDto);
+        return ResponseApi.createSuccess(HttpStatus.OK, "완료", memberMeDto);
     }
 
 }

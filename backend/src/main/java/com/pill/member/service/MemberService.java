@@ -28,7 +28,7 @@ public class MemberService {
     @Transactional
     public void updateMember(Long memberId, ProfileDto profileDto) {
         Member member = memberRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
-        member.updateMember(profileDto.name(), profileDto.age(), profileDto.gender());
+        member.updateMember(profileDto.name(), profileDto.gender());
     }
 
     public MemberMeDto findMember(Long memberId) {

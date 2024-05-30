@@ -23,23 +23,18 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @ColumnDefault("'unkwoun'")
+    @Column
     private String name;
 
-    @ColumnDefault("0")
-    private Integer age;
-
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("'MALE'")
     private Gender gender;
 
     @Builder
-    private Member(Long id, String email, String password, String name, Integer age, Gender gender) {
+    private Member(Long id, String email, String password, String name, Gender gender) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
-        this.age = age;
         this.gender = gender;
     }
 
@@ -51,9 +46,8 @@ public class Member {
         return Member.builder().email(email).password(password).build();
     }
 
-    public void updateMember(String name, Integer age, Gender gender) {
+    public void updateMember(String name, Gender gender) {
         this.name = name;
-        this.age = age;
         this.gender = gender;
     }
 }
