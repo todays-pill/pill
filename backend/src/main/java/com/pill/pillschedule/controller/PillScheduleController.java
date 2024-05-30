@@ -1,11 +1,11 @@
-package com.pill.pillSchedule.controller;
+package com.pill.pillschedule.controller;
 
 import com.pill.global.presentation.AuthPrincipal;
 import com.pill.global.presentation.dto.AuthMember;
 import com.pill.global.response.ResponseApi;
-import com.pill.pillSchedule.dto.PillAddDto;
-import com.pill.pillSchedule.dto.PillAddResponseDto;
-import com.pill.pillSchedule.service.PillScheduleService;
+import com.pill.pillschedule.dto.PillAddDto;
+import com.pill.pillschedule.dto.PillAddResponseDto;
+import com.pill.pillschedule.service.PillScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
