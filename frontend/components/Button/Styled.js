@@ -6,6 +6,7 @@ export const Wrapper = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   padding: 20px 0;
+  box-sizing: border-box;
   border-radius: 10px;
   background-color: ${props => (props.isBg ? "#69b4ff" : "none")};
 `;

@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as Styled from "./Styled";
 import { WithLocalSvg } from "react-native-svg/css";
-import SmileIcon from "../../assets/vectors/smile.svg";
 import PlusIcon from "../../assets/vectors/plus-icon.svg";
 import { StatusBar } from "expo-status-bar";
+import PillCard from "../../components/PillCard/PillCard";
 
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => {
   return (
     <Styled.Wrapper>
       <StatusBar />
@@ -27,7 +27,7 @@ const MainScreen = () => {
           <Styled.SubTitle>오늘 먹을 알약</Styled.SubTitle>
           <Styled.SubTitle style={{ color: "#5BADFF" }}>0건</Styled.SubTitle>
         </View>
-        <Styled.Card style={styles.card}>
+        {/* <Styled.Card style={styles.card}>
           <View style={{ alignItems: "center", gap: 10 }}>
             <WithLocalSvg asset={SmileIcon} />
             <Text
@@ -36,8 +36,20 @@ const MainScreen = () => {
               오늘 먹을 알약이 없어요!
             </Text>
           </View>
-        </Styled.Card>
-        <Styled.AddWrapper>
+        </Styled.Card> */}
+        <PillCard
+          name="타이레놀"
+          imageUrl={
+            "https://roundtable-test-20240507.s3.ap-northeast-2.amazonaws.com/pill/K036025.jpg"
+          }
+          isBreakfast={true}
+          isDinner={true}
+          isLunch={true}
+          isClear={false}
+        />
+        <Styled.AddWrapper
+          onPress={() => navigation.navigate("ScheduleCreateScreen")}
+        >
           <WithLocalSvg asset={PlusIcon} />
         </Styled.AddWrapper>
       </Styled.ContentWrapper>

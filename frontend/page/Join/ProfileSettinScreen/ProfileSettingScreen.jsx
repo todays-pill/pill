@@ -7,7 +7,7 @@ import Button from "../../../components/Button/Button";
 import { View } from "react-native";
 import { updateProfile } from "../../../api/member";
 
-const ProfileSettingScreen = () => {
+const ProfileSettingScreen = ({ navigation }) => {
   const [gender, setGender] = useState("MAN");
   const {
     control,
@@ -40,7 +40,7 @@ const ProfileSettingScreen = () => {
     const res = await updateProfile(name, gender);
     console.log(res);
     if (res.status === "OK") {
-      
+      navigation.navigate("MainScreen");
     }
   };
 

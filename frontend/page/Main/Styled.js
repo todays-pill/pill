@@ -29,13 +29,21 @@ export const Card = styled.View`
   align-items: center;
 `;
 
+export const PillCard = styled.View`
+  background-color: #fff;
+  width: 207px;
+  height: 291px;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ContentWrapper = styled.View`
   flex: 1;
   background-color: #f8f9fd;
   padding: 15px;
   padding-top: 20px;
   gap: 10px;
-  /* box-shadow: 0px rgba(194, 201, 209, 0.2); */
 `;
 
 export const AddWrapper = styled.TouchableOpacity`
