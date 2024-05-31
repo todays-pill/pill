@@ -24,13 +24,13 @@ public class Pill {
     @Column(unique = true)
     private String code;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String effect;
 
     @Column
     private String imageUrl;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String dosing;
 
     @Column(columnDefinition = "TEXT")
