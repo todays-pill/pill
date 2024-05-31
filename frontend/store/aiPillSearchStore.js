@@ -7,6 +7,7 @@ const useAiPillSearchStore = create((set, get) => ({
   setFrontBlob: frontBlob => set(() => ({ frontBlob })),
   setBackBlob: backBlob => set(() => ({ backBlob })),
   setPillData: pillData => set(() => ({ pillData })),
+  reset: () => set(() => ({ frontBlob: null, backBlob: null, pillData: null })),
 }));
 
 export default useAiPillSearchStore;

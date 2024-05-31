@@ -40,7 +40,7 @@ const ProfileSettingScreen = ({ navigation }) => {
     const res = await updateProfile(name, gender);
     console.log(res);
     if (res.status === "OK") {
-      navigation.navigate("MainScreen");
+      navigation.navigate("HomeScreen");
     }
   };
 

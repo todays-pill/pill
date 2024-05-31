@@ -29,14 +29,9 @@ export const Card = styled.View`
   align-items: center;
 `;
 
-export const PillCard = styled.View`
-  background-color: #fff;
-  width: 207px;
-  height: 291px;
-  border-radius: 6px;
-  justify-content: center;
-  align-items: center;
-`;
+// export const CardWrapper = styled.ScrollView`
+//   h
+// `
 
 export const ContentWrapper = styled.View`
   flex: 1;

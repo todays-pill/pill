@@ -28,9 +28,9 @@ const PillCard = ({
         <Image
           style={{
             width: 175,
-            height: 120,
+            height: 100,
             resizeMode: "contain",
-            borderRadius: 20,
+            borderRadius: 10,
           }}
           source={{
             uri: imageUrl,

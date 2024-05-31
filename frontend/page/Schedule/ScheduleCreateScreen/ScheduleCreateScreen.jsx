@@ -8,11 +8,14 @@ import SelectedInput from "../../../components/SelectedInput/SelectedInput";
 import { useEffect, useState } from "react";
 import useAiPillSearchStore from "../../../store/aiPillSearchStore";
 import Label from "../../../components/Label/Label";
+import { createPillSchedule } from "../../../api/pillSchedule";
+import { useQueryClient } from "@tanstack/react-query";
 
 const days = ["월", "화", "수", "목", "금", "토", "일"];
 
 const ScheduleCreateScreen = ({ navigation }) => {
-  const { pillData } = useAiPillSearchStore();
+  const queryClient = useQueryClient();
+  const { pillData, reset } = useAiPillSearchStore();
   const [selectedDays, setSelectedDays] = useState([]);
   const [selectedvalues, setSelectedValues] = useState(["아침"]);
   const {
@@ -23,7 +26,6 @@ const ScheduleCreateScreen = ({ navigation }) => {
   } = useForm({
     defaultValues: {
       pillName: pillData?.name || "",
-      frequencyInterval: null,
     },
   });
 
@@ -39,14 +41,28 @@ const ScheduleCreateScreen = ({ navigation }) => {
 
   const onPressDay = day => {
     if (selectedDays.includes(day)) {
-      setSelectedDays(v => v.filter(d => d !== day));
+      const newDay = selectedDays.filter(d => d !== day);
+      setSelectedDays(newDay);
       return;
     }
     setSelectedDays(v => [...v, day]);
   };
 
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = async ({ pillName }) => {
+    console.log(pillName);
+    const data = await createPillSchedule(
+      pillData.pillId,
+      pillName,
+      selectedDays,
+      selectedvalues.includes("아침"),
+      selectedvalues.includes("점심"),
+      selectedvalues.includes("저녁")
+    );
+    if (data.status === "OK") {
+      queryClient.invalidateQueries(["pillSchedule", "today"]);
+      reset();
+      navigation.navigate("MainScreen");
+    }
   };
 
   return (

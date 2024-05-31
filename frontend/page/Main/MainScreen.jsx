@@ -1,11 +1,19 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Styled from "./Styled";
 import { WithLocalSvg } from "react-native-svg/css";
 import PlusIcon from "../../assets/vectors/plus-icon.svg";
 import { StatusBar } from "expo-status-bar";
 import PillCard from "../../components/PillCard/PillCard";
+import { useQuery } from "@tanstack/react-query";
+import { getTodayPillSchedule } from "../../api/pillSchedule";
+import SmileIcon from "../../assets/vectors/smile.svg";
 
 const MainScreen = ({ navigation }) => {
+  const { data } = useQuery({
+    queryKey: ["pillSchedule", "today"],
+    queryFn: () => getTodayPillSchedule(),
+  });
+
   return (
     <Styled.Wrapper>
       <StatusBar />
@@ -25,28 +33,41 @@ const MainScreen = ({ navigation }) => {
       <Styled.ContentWrapper>
         <View style={{ flexDirection: "row", gap: 10 }}>
           <Styled.SubTitle>오늘 먹을 알약</Styled.SubTitle>
-          <Styled.SubTitle style={{ color: "#5BADFF" }}>0건</Styled.SubTitle>
+          <Styled.SubTitle style={{ color: "#5BADFF" }}>
+            {data?.data.length || "0"}건
+          </Styled.SubTitle>
         </View>
-        {/* <Styled.Card style={styles.card}>
-          <View style={{ alignItems: "center", gap: 10 }}>
-            <WithLocalSvg asset={SmileIcon} />
-            <Text
-              style={{ color: "#9CA3AB", fontWeight: "bold", fontSize: 14 }}
-            >
-              오늘 먹을 알약이 없어요!
-            </Text>
-          </View>
-        </Styled.Card> */}
-        <PillCard
-          name="타이레놀"
-          imageUrl={
-            "https://roundtable-test-20240507.s3.ap-northeast-2.amazonaws.com/pill/K036025.jpg"
-          }
-          isBreakfast={true}
-          isDinner={true}
-          isLunch={true}
-          isClear={false}
-        />
+
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {data?.data.length > 0 ? (
+            data?.data.map(pillSchedule => (
+              <View
+                key={pillSchedule.pillScheduleId}
+                style={{ marginRight: 20 }}
+              >
+                <PillCard
+                  name={pillSchedule.pillName}
+                  imageUrl={pillSchedule.imageUrl}
+                  isBreakfast={pillSchedule.isBreakfast}
+                  isDinner={pillSchedule.isDinner}
+                  isLunch={pillSchedule.isLunch}
+                  isClear={false}
+                />
+              </View>
+            ))
+          ) : (
+            <Styled.Card style={styles.card}>
+              <View style={{ alignItems: "center", gap: 10 }}>
+                <WithLocalSvg asset={SmileIcon} />
+                <Text
+                  style={{ color: "#9CA3AB", fontWeight: "bold", fontSize: 14 }}
+                >
+                  오늘 먹을 알약이 없어요!
+                </Text>
+              </View>
+            </Styled.Card>
+          )}
+        </ScrollView>
         <Styled.AddWrapper
           onPress={() => navigation.navigate("ScheduleCreateScreen")}
         >

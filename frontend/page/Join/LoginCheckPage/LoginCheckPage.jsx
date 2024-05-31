@@ -32,7 +32,7 @@ const LoginCheckPage = ({ route, navigation }) => {
           navigation.navigate("ProfileSettinScreen");
           return;
         }
-        navigation.navigate("MainScreen");
+        navigation.navigate("HomeScreen");
       }
     }
   };
