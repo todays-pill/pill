@@ -22,6 +22,7 @@ public class FakePillService implements PillService {
         String code = aiServer.search(frontImage, backImage);
         Pill pill = pillRepository.findByCode(code);
         return new PillDetailDto(
+                pill.getId(),
                 pill.getName(),
                 pill.getEffect(),
                 pill.getDosing(),

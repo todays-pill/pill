@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/pill")
+@RequestMapping("/pill-schedule")
 @RequiredArgsConstructor
 public class PillScheduleController {
 
