@@ -1,6 +1,7 @@
 package com.pill.pillschedule.domain;
 
 import com.pill.member.domain.Member;
+import com.pill.pill.domain.Pill;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,6 +22,9 @@ public class PillSchedule {
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
+    @ManyToOne
+    private Pill pill;
+
     @Column
     private String pillName;
 
@@ -34,10 +38,12 @@ public class PillSchedule {
     private boolean isDinner;
 
     @Builder
-    public PillSchedule(Long id, Member member, String pillName, boolean isBreakfast, boolean isLunch,
+
+    public PillSchedule(Long id, Member member, Pill pill, String pillName, boolean isBreakfast, boolean isLunch,
                         boolean isDinner) {
         this.id = id;
         this.member = member;
+        this.pill = pill;
         this.pillName = pillName;
         this.isBreakfast = isBreakfast;
         this.isLunch = isLunch;

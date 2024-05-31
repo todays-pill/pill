@@ -11,6 +11,9 @@ public record PillAddDto(
     @NotEmpty
     String pillName,
 
+    @NotEmpty
+    Long pillId,
+
     @Size(min = 1, max = 7)
     List<String> days,
 

@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ScheduleDayRepository extends JpaRepository<ScheduleDay, Long> {
-    @Query("select ps from ScheduleDay sd join sd.pillSchedule ps where sd.day = :day and ps.member = :member")
+    @Query("select ps from ScheduleDay sd join sd.pillSchedule ps join fetch ps.pill where sd.day = :day and ps.member = :member")
     List<PillSchedule> findByDay(@Param("day") String day, @Param("member") Member member);
 }
