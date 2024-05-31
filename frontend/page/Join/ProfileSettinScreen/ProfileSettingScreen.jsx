@@ -40,6 +40,7 @@ const ProfileSettingScreen = () => {
     const res = await updateProfile(name, gender);
     console.log(res);
     if (res.status === "OK") {
+      
     }
   };
 

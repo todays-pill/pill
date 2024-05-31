@@ -14,8 +14,48 @@ import AiSearchResultScreen from "./page/Schedule/AiSearchResultScreen/AiSearchR
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PasswordInputScreen from "./page/Join/PasswordInputScreen/PasswordInputScreen";
 import ProfileSettingScreen from "./page/Join/ProfileSettinScreen/ProfileSettingScreen";
+import MainScreen from "./page/Main/MainScreen";
+import HomeHeader from "./components/HomeHeader/HomeHeader";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { WithLocalSvg } from "react-native-svg/css";
+import HomeIcon from "./assets/vectors/home-icon.svg";
 
 const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+const HomeScreen = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="MainScreen"
+      screenOptions={{
+        tabBarInactiveTintColor: "#D5DCE4",
+        tabBarActiveTintColor: "#3F4245",
+      }}
+    >
+      <Tab.Screen
+        name="MainScreen"
+        component={MainScreen}
+        options={{
+          header: () => <HomeHeader />,
+          tabBarIcon: ({ focused }) => <WithLocalSvg asset={HomeIcon} />,
+          tabBarLabel: "홈",
+          tabBarLabelStyle: { fontSize: 14 },
+        }}
+      />
+      <Tab.Screen
+        name="ㅇㅁㅈㅇㅁㅈ"
+        component={MainScreen}
+        options={{
+          header: () => <HomeHeader />,
+          tabBarIcon: ({ focused }) => <WithLocalSvg asset={HomeIcon} />,
+          tabBarLabel: "홈",
+          tabBarLabelStyle: { fontSize: 14 },
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -23,7 +63,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="HomeScreen">
           <Stack.Screen
             name="Home"
             component={Home}
@@ -98,6 +138,11 @@ export default function App() {
             options={{
               header: () => <Header title="알약 검색 결과" />,
             }}
+          />
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
