@@ -7,8 +7,13 @@ import PillCard from "../../components/PillCard/PillCard";
 import { useQuery } from "@tanstack/react-query";
 import { getTodayPillSchedule } from "../../api/pillSchedule";
 import SmileIcon from "../../assets/vectors/smile.svg";
+import { getMe } from "../../api/member";
 
 const MainScreen = ({ navigation }) => {
+  const { data: meData } = useQuery({
+    queryKey: ["me"],
+    queryFn: () => getMe(),
+  });
   const { data } = useQuery({
     queryKey: ["pillSchedule", "today"],
     queryFn: () => getTodayPillSchedule(),
@@ -26,7 +31,7 @@ const MainScreen = ({ navigation }) => {
         }}
       >
         <View style={{ gap: 6 }}>
-          <Styled.Title>안녕하세요, 지수님!</Styled.Title>
+          <Styled.Title>안녕하세요, {meData?.data.name}님!</Styled.Title>
           <Styled.Title>오늘도 알약을 챙겨먹어요</Styled.Title>
         </View>
       </Styled.Header>
