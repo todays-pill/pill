@@ -43,16 +43,6 @@ const HomeScreen = () => {
           tabBarLabelStyle: { fontSize: 14 },
         }}
       />
-      <Tab.Screen
-        name="ㅇㅁㅈㅇㅁㅈ"
-        component={MainScreen}
-        options={{
-          header: () => <HomeHeader />,
-          tabBarIcon: ({ focused }) => <WithLocalSvg asset={HomeIcon} />,
-          tabBarLabel: "홈",
-          tabBarLabelStyle: { fontSize: 14 },
-        }}
-      />
     </Tab.Navigator>
   );
 };

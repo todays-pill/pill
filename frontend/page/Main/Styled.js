@@ -16,15 +16,36 @@ export const Title = styled.Text`
 
 export const SubTitle = styled.Text`
   font-weight: bold;
-  font-size: 17;
+  font-size: 17px;
   color: #3f4245;
 `;
 
 export const Card = styled.View`
   background-color: #fff;
+  width: 207px;
+  height: 291px;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContentWrapper = styled.View`
   flex: 1;
   background-color: #f8f9fd;
+  padding: 15px;
+  padding-top: 20px;
+  gap: 10px;
+  /* box-shadow: 0px rgba(194, 201, 209, 0.2); */
+`;
+
+export const AddWrapper = styled.TouchableOpacity`
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background-color: #5badff;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
 `;
