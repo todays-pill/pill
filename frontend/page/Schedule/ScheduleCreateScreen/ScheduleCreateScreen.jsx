@@ -30,6 +30,10 @@ const ScheduleCreateScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
+    return () => reset();
+  }, []);
+
+  useEffect(() => {
     if (pillData) {
       setValue("pillName", pillData.name);
     }

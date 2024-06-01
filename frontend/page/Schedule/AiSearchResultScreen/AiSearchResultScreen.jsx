@@ -4,27 +4,38 @@ import * as Styled from "./Styled";
 import Button from "../../../components/Button/Button";
 import Label from "../../../components/Label/Label";
 import useAiPillSearchStore from "../../../store/aiPillSearchStore";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { searchPillAi } from "../../../api/pill";
+import { predictPill } from "../../../api/aiServer";
 import { useEffect } from "react";
 
 const AiSearchResultScreen = ({ navigation }) => {
-  const { frontBlob, backBlob, setPillData } = useAiPillSearchStore();
-  const { data, isLoading, isSuccess } = useQuery({
-    queryKey: ["pill"],
-    queryFn: () => searchPillAi(frontBlob, backBlob),
+  const queryClient = useQueryClient();
+  const { frontFile, backFile, setPillData } = useAiPillSearchStore();
+  console.log(frontFile);
+  const { data: aiData, isLoading: aiLoding } = useQuery({
+    queryKey: ["pill", "predict"],
+    queryFn: () => predictPill(frontFile, backFile),
   });
 
-  if (isLoading) {
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: ["pill", aiData.predicted_class_name],
+    queryFn: () => searchPillAi(aiData.predicted_class_name),
+    enabled: !!aiData,
+  });
+
+  if (aiLoding || isLoading) {
     return <ActivityIndicator size="large" />;
   }
 
-  const { data: pillData } = data;
-
   const onPressRegisterBtn = () => {
-    setPillData(pillData);
+    queryClient.invalidateQueries(["pill", "predict"]);
+    queryClient.invalidateQueries(["pill"]);
+    setPillData(data.data);
     navigation.navigate("ScheduleCreateScreen");
   };
+
+  console.log(data);
 
   return (
     <Styled.Wrapper>
@@ -36,32 +47,32 @@ const AiSearchResultScreen = ({ navigation }) => {
               height: 200,
             }}
             source={{
-              uri: `${pillData.imageUrl}`,
+              uri: `${data?.data.imageUrl}`,
             }}
           />
         </Styled.CameraWrapper>
         <Styled.InputWrapper>
           <Label isBold={true} text={"알약 이름"} />
           <Text style={{ fontSize: 16, color: "#565A5E" }}>
-            {pillData.name}
+            {data?.data.name}
           </Text>
         </Styled.InputWrapper>
         <Styled.InputWrapper>
           <Label isBold={true} text={"효능"} />
           <Text style={{ fontSize: 16, color: "#565A5E" }}>
-            {pillData.effect}
+            {data?.data.effect}
           </Text>
         </Styled.InputWrapper>
         <Styled.InputWrapper>
           <Label isBold={true} text={"용법/용량"} />
           <Text style={{ fontSize: 16, color: "#565A5E" }}>
-            {pillData.dosing}
+            {data?.data.dosing}
           </Text>
         </Styled.InputWrapper>
         <Styled.InputWrapper>
           <Label isBold={true} text={"사용상 주의사항"} />
           <Text style={{ fontSize: 16, color: "#565A5E" }}>
-            {pillData.caution}
+            {data?.data.caution}
           </Text>
         </Styled.InputWrapper>
       </Styled.ContentWrapper>

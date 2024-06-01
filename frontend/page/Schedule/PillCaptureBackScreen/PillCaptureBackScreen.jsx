@@ -17,7 +17,7 @@ const RETAKE_PHOTO = "재촬영";
 const TAKE_PHOTO = "알약 뒷면 사진 찍기";
 
 const PillCaptureBackScreen = ({ navigation }) => {
-  const { frontBlob, backBlob, setBackBlob } = useAiPillSearchStore();
+  const { setBackBlob, setBackFile } = useAiPillSearchStore();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
   const [image, setImage] = useState(null);
@@ -38,10 +38,15 @@ const PillCaptureBackScreen = ({ navigation }) => {
       const data = await cameraRef.current.takePictureAsync({
         base64: true,
       });
+      const file = {
+        name: data.uri,
+        type: data.type || "image/jpeg",
+        uri: data.uri,
+      };
       const blob = await fetch(`data:image/jpeg;base64,${data.base64}`).then(
         res => res.blob()
       );
-      setBackBlob(blob);
+      setBackFile(file);
       const url = URL.createObjectURL(blob);
       setImage(url);
     }
@@ -59,6 +64,10 @@ const PillCaptureBackScreen = ({ navigation }) => {
 
   const onClickAiSearchBtn = async () => {
     navigation.navigate("AiSearchResultScreen");
+  };
+
+  const onChangeFile = file => {
+    setBackFile(file);
   };
 
   if (!permission.granted) {
@@ -80,7 +89,11 @@ const PillCaptureBackScreen = ({ navigation }) => {
           <Image source={{ uri: image }} style={styles.fixedRatio} />
         )}
       </View>
-      <ImagePickerComponent text={"알약 뒷면"} onChangeImage={onChangeImage} />
+      <ImagePickerComponent
+        text={"알약 뒷면"}
+        onChangeImage={onChangeImage}
+        onChangeFile={onChangeFile}
+      />
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           style={{ justifyContent: "center", alignItems: "center" }}

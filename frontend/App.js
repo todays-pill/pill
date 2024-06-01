@@ -53,7 +53,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="HomeScreen">
           <Stack.Screen
             name="Home"
             component={Home}

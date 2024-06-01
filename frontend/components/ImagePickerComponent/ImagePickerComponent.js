@@ -1,7 +1,7 @@
 import { Button, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-const ImagePickerComponent = ({ text, onChangeImage }) => {
+const ImagePickerComponent = ({ text, onChangeImage, onChangeFile }) => {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -13,6 +13,13 @@ const ImagePickerComponent = ({ text, onChangeImage }) => {
 
     if (!result.canceled) {
       // setImage(result.assets[0].uri);
+      console.log(result.assets[0]);
+      const file = {
+        name: result.assets?.[0]?.uri,
+        type: result.assets?.[0]?.mimeType,
+        uri: result.assets?.[0]?.uri,
+      };
+      onChangeFile(file);
       const url = await convertFileUriToBlob(result.assets[0].uri);
       onChangeImage(url);
     }
